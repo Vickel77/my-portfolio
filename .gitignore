@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# My files
+/src/components/zzz
+
 # testing
 /coverage
 
