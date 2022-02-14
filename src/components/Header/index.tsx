@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import Button from "../Button";
 import SocialMedia from "../SocialMedia";
+import DeviceWidth from "../../context/MobileResizeContext";
+import { useContext } from "react";
 // import Typical from "react-typical";
 
 const Header = styled(({ className, setIsDarkMode, isDarkMode }) => {
+  const isMobile = useContext(DeviceWidth);
   return (
     <div className={className}>
       <div className="first-section">
@@ -13,26 +16,28 @@ const Header = styled(({ className, setIsDarkMode, isDarkMode }) => {
           {/* <Typical
             loop={infinity}
             wrapper="b"
-            steps = {[[
-              "Web developer",
-              "Graphic Designer",
-              "web designer",
-            ]]}
+            steps={[["Web developer", "Graphic Designer", "web designer"]]}
           /> */}
-
-          <h3>JOB DESC</h3>
+          {isMobile && <h1 className="name">KELECHI ALIGWO</h1>}
+          <h3>SOFTWARE DEVELOPER</h3>
           <p>
             I love what i do and i do what i love this helps me bring out the
             best in every work i do{" "}
           </p>
           <div className="button">
-            <Button onClick={()=>setIsDarkMode(!isDarkMode)}  label="LET's COLLABORATE" />
+            <Button
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              label="LET's COLLABORATE"
+            />
           </div>
+
           <SocialMedia size="2" />
         </div>
-        <div className="center-circle">
-          <h1>KELECHI ALIGWO</h1>
-        </div>
+        {!isMobile && (
+          <div className="center-circle">
+            <h1>KELECHI ALIGWO</h1>
+          </div>
+        )}
       </div>
       <div className="second-section"></div>
     </div>
@@ -43,20 +48,23 @@ const Header = styled(({ className, setIsDarkMode, isDarkMode }) => {
   justify-content: center;
   align-items: center;
   .first-section {
-    background: ${({theme})=>theme.colors.default};
+    background: ${({ theme }) => theme.colors.default};
     width: 55%;
     height: 100vh;
     position: relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .name {
+      padding-bottom: 3rem;
+    }
     .center-circle {
       background: inherit;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      width: 300px;
-      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 400px;
+      height: 400px;
       border-radius: 50%;
       position: absolute;
       top: 50%;
@@ -64,11 +72,11 @@ const Header = styled(({ className, setIsDarkMode, isDarkMode }) => {
       transform: translate(45%, -50%);
     }
     .header-text {
-      text-align:left;
+      text-align: left;
       width: 50%;
     }
     .button {
-      margin:50px 0;
+      margin: 50px 0;
     }
   }
   .second-section {
@@ -80,8 +88,19 @@ const Header = styled(({ className, setIsDarkMode, isDarkMode }) => {
       ),
       url("right-side.jpg");
     background-size: cover;
+    background-attachment: fixed;
   }
-  
+
+  @media (max-width: 600px) {
+    flex-flow: column nowrap;
+    .first-section {
+      width: 100%;
+      flex-flow: column nowrap;
+    }
+    .second-section {
+      display: none;
+    }
+  }
 `;
 
 export default Header;
